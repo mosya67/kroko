@@ -16,9 +16,9 @@ namespace Database
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public bool Exists(string name)
+        public bool Exists(Domain.User user)
         {
-            return context.Users.SingleOrDefault(p => p.Name == name) == null ? false : true;
+            return context.Users.SingleOrDefault(p => p.Name == user.Name && p.Password == user.Password) == null ? false : true;
         }
     }
 }

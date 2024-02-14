@@ -11,56 +11,58 @@ namespace kroko
     {
         private readonly IRegUser regUser;
         private readonly IExistsUser existsUser;
+
         public MainWindow()
         {
             InitializeComponent();
 
+            var context = new Database.Model.Context();
+
             regUser = new 
                 RegisterUserWithVerification(
                 new AddUser(
-                    new Database.Model.Context()),
+                    context),
                 new DebugLog());
 
             existsUser = new
                 CheckUserExistsDecorator(
                     new ExistsUser(
-                        new Database.Model.Context()));
+                        context));
         }
 
         private void RegistrationButton_Click(object sender, RoutedEventArgs e)
         {
-            if (regName.Text.Length > 20)
-            {
-                //оповещение пользователя
-                return;
-            }
-            if (regPassword.Text.Length > 20)
-            {
-                //оповещение пользователя
-                return;
-            }
-            if (string.IsNullOrEmpty(regName.Text))
-            {
-                //оповещение пользователя
-                return;
-            }
-            if (string.IsNullOrEmpty(regPassword.Text))
-            {
-                //оповещение пользователя
-                return;
-            }
-            if (existsUser.Exists(regName.Text))
-            {
-                //оповещение пользователя
-                return;
-            }
-
             User user = new User
             {
                 Name = regName.Text,
                 Password = regPassword.Text,
                 RegisterDate = DateTime.Now,
             };
+            if (user.Name.Length > 20)
+            {
+                //оповещение пользователя
+                return;
+            }
+            if (user.Password.Length > 20)
+            {
+                //оповещение пользователя
+                return;
+            }
+            if (string.IsNullOrEmpty(user.Name))
+            {
+                //оповещение пользователя
+                return;
+            }
+            if (string.IsNullOrEmpty(user.Password))
+            {
+                //оповещение пользователя
+                return;
+            }
+            if (existsUser.Exists(user))
+            {
+                //оповещение пользователя
+                return;
+            }
 
             regUser.Execute(user);
         }

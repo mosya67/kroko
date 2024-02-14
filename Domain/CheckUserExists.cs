@@ -16,9 +16,9 @@ namespace Domain
             this.service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        public bool Exists(string name)
+        public bool Exists(User user)
         {
-            return service.Exists(name);
+            return service.Exists(user);
         }
     }
 }

@@ -9,6 +9,6 @@ namespace Database
 {
     public interface IExistsUser
     {
-        public bool Exists(string name);
+        public bool Exists(User user);
     }
 }
