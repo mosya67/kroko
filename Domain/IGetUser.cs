@@ -8,6 +8,6 @@ namespace Domain
 {
     public interface IGetUser
     {
-        public User GetUser();
+        public User Get(string name, string password);
     }
 }
